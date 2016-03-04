@@ -2,6 +2,7 @@
   "name": "olinjs-trumpmaps",
   "version": "0.0.0",
   "private": true,
+  "author": "David Abrahams, Shruti Iyer",
   "scripts": {
     "start": "node ./bin/www"
   },
