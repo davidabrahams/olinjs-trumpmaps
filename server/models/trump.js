@@ -3,10 +3,9 @@ var mongoose = require('mongoose')
 
 // Create a Schema
 var Trump = mongoose.Schema({
-    name: String, // name of the article
+    name: String, // name of the trump
     img: String, // As of now, a url %TODO: change it?
-    lat: Number, // Latitude
-    lon: Number // Longitude
+    latLng: Schema.Types.Mixed, // LatLong obj
 });
 
 module.exports = mongoose.model("Trump", Trump);
