@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    
+
     <style>
       html, body {
         height: 100%;
@@ -28,7 +28,7 @@
     <div class="header">
         <h3 class="text-muted">Trump Maps</h3>
     </div>
-    
+
     <!-- Map -->
     <div class="col-md-7" id="map"></div>
 
@@ -66,18 +66,8 @@
         </div>
       </div>
     </div>
-
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 42.360, lng: -71.058},
-          zoom: 8
-        });
-      }
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZmAyMUQNq2-msGjKpg1vjm4W_iaGqbb4"></script>
     <script type="text/javascript" src="/javascripts/controller.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZmAyMUQNq2-msGjKpg1vjm4W_iaGqbb4&callback=initMap" async defer></script>
   </body>
 </html>
 
