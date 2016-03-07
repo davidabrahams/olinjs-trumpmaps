@@ -12,11 +12,12 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   $scope.submit = function() {
-    $http.post("api/trump", {
+    var data = {
       name: $scope.formData.name,
       img: $scope.formData.img,
       latLng: $scope.formData.latLng
-    }).then(onSuccess);
+    };
+    $http.post("api/trump", data).then(onSuccess);
   };
 
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
@@ -31,13 +32,6 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   function addMarker(location, map, img) {
-
-    var contentString = '<img src="' + img + '">'
-
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-
     // Add the marker at the clicked location, and add the next-available label
     // from the array of alphabetical characters.
     var marker = new google.maps.Marker({
@@ -45,9 +39,15 @@ app.controller('home', function ($scope, $filter, $http) {
       label: 'TRUMP',
       map: map
     });
+
+    var contentString = '<img src="' + img + '" alt="your image" />'
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
+
     return marker;
   }
 
@@ -65,6 +65,18 @@ app.controller('home', function ($scope, $filter, $http) {
       markers.push(m);
     });
   };
+
+  $scope.uploadImage = function(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $scope.formData.img = e.target.result;
+        $('#blah')
+          .attr('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 
   $http.get('api/trump').then(onSuccess);
 });

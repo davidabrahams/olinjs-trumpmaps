@@ -36,28 +36,25 @@
               <form name ="addForm" ng-submit="submit()" novalidate>
                 <!-- Text Boxes and Other User Inputs-->
                 <div class="form-group">
-                  <label for="name">Name of the article</label>
+                  <label for="name">Name of the Trump</label>
                   <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required>
                 </div>
                 <div class="form-group">
-                  <label for="img">Image URL</label>
-                  <input type="text" class="form-control" id="img" placeholder="abc.png" ng-model="formData.img" required>
-                </div>
-                <div class="form-group">
                   <label for="latitude">Latitude</label>
-                  <input type="text" class="form-control" id="latitude" value="{{formData.latLng.lat()}}"readonly>
+                  <input type="text" class="form-control" id="latitude" value="{{formData.latLng.lat()}}" readonly required>
                 </div>
                 <div class="form-group">
                   <label for="longitude">Longitude</label>
-                  <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly="">
+                  <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly required="true">
                 </div>
                 <div class="form-group">
-                  <input type="file" accept="image/*" capture="camera">
+                  <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage(this)">
                 </div>
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
                 <button type="submit" class="btn btn-danger btn-block">Submit</button>
               </form>
             </div>
+            <img id="blah" src="#" alt="your image" />
           </div>
         </div>
       </div>
