@@ -12,6 +12,11 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   $scope.submit = function() {
+    console.log({
+      name: $scope.formData.name,
+      img: $scope.formData.img,
+      latLng: $scope.formData.latLng
+    });
     $http.post("api/trump", {
       name: $scope.formData.name,
       img: $scope.formData.img,
@@ -31,13 +36,6 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   function addMarker(location, map, img) {
-
-    var contentString = '<img src="' + img + '">'
-
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-
     // Add the marker at the clicked location, and add the next-available label
     // from the array of alphabetical characters.
     var marker = new google.maps.Marker({
@@ -45,9 +43,18 @@ app.controller('home', function ($scope, $filter, $http) {
       label: 'TRUMP',
       map: map
     });
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var contentString = '<img src="' + e.target.result + '" alt="your image" />'
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    };
+    reader.readAsDataURL(img);
     return marker;
   }
 
@@ -61,10 +68,25 @@ app.controller('home', function ($scope, $filter, $http) {
     var trumps = data.data;
     clear_markers();
     trumps.forEach( function (trump) {
+      console.log(trump.img)
       var m = addMarker(trump.latLng, $scope.map, trump.img);
       markers.push(m);
     });
   };
+
+  $scope.uploadImage = function(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#blah')
+          .attr('src', e.target.result)
+          .width(150)
+          .height(200);
+      };
+      $scope.formData.img = input.files[0];
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 
   $http.get('api/trump').then(onSuccess);
 });

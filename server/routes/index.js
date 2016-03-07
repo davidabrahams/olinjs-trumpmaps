@@ -19,7 +19,9 @@ router.post('/api/trump', function(req, res, next) {
   var name = req.body.name;
   var img = req.body.img;
   var latLng = req.body.latLng;
+  console.log(latLng);
   Trump.create({ name: name, img:img, latLng:latLng}, function (err, trump) {
+    console.log(err)
     if (err) return res.status(500).
       send('An error occurred when creating the new trump.');
     Trump.find(function (err, trumps) {res.json(trumps)});
