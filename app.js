@@ -5,9 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var session = require('express-session');
 
+var auth = require('./auth');
 var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
+
+passport.use(new FacebookStrategy({
+    clientID: auth.FACEBOOK_APP_ID,
+    clientSecret: auth.FACEBOOK_APP_SECRET,
+    callbackURL: auth.FACEBOOK_CALLBACK_URL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    done(null, profile);
+  }
+));
 
 var app = express();
 
@@ -31,7 +45,13 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({ 
+  secret: 'SantaHorse',
+  resave: false,
+  saveUninitialized: false 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', routes);
 app.use('/users', users);
 
@@ -41,6 +61,24 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
+app.get('/user', ensureAuthenticated, function(req, res) {
+  res.send(req.user);
+})
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+    res.send(401);
+}
 
 // error handlers
 
