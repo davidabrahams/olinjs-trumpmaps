@@ -5,71 +5,63 @@
     <title>ProfWIKI</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZmAyMUQNq2-msGjKpg1vjm4W_iaGqbb4"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 90%;
-      }
-    </style>
   </head>
   <body ng-controller="home">
-
-    <div class="header">
+    <div class="container">
+      <div class="header">
         <h3 class="text-muted">Trump Maps</h3>
-    </div>
-
-    <!-- Map -->
-    <div class="col-sm-7" id="map"></div>
-
-    <!-- Panel -->
-    <div class="col-sm-5">
-      <div class="panel panel-default">
-        <!-- Panel Title -->
-        <div class="panel-heading">
-            <h2 class="panel-title text-center">Add the trump! <span class="glyphicon glyphicon-map-marker"></span></h2>
+      </div>
+      <div class="row content">
+        <!-- Map -->
+        <div class="col-sm-7">
+          <div id="map"></div>
         </div>
-        <!-- Panel Body -->
-        <div class="panel-body">
-          <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-          <form name ="addForm" ng-submit="submit()" novalidate>
-            <!-- Text Boxes and Other User Inputs-->
-            <div class="form-group">
-              <label for="name">Name of the article</label>
-              <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required>
+        <!-- Panel -->
+        <div class="col-sm-5">
+          <div class="panel panel-default">
+            <!-- Panel Title -->
+            <div class="panel-heading">
+              <h2 class="panel-title text-center">Add the trump! <span class="glyphicon glyphicon-map-marker"></span></h2>
             </div>
-            <div class="form-group">
-              <label for="img">Image URL</label>
-              <input type="text" class="form-control" id="img" placeholder="abc.png" ng-model="formData.img" required>
+            <!-- Panel Body -->
+            <div class="panel-body">
+              <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
+              <form name ="addForm" ng-submit="submit()" novalidate>
+                <!-- Text Boxes and Other User Inputs-->
+                <div class="form-group">
+                  <label for="name">Name of the article</label>
+                  <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required>
+                </div>
+                <div class="form-group">
+                  <label for="img">Image URL</label>
+                  <input type="text" class="form-control" id="img" placeholder="abc.png" ng-model="formData.img" required>
+                </div>
+                <div class="form-group">
+                  <label for="latitude">Latitude</label>
+                  <input type="text" class="form-control" id="latitude" value="{{formData.latLng.lat()}}"readonly>
+                </div>
+                <div class="form-group">
+                  <label for="longitude">Longitude</label>
+                  <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly="">
+                </div>
+                <div class="form-group">
+                  <input type="file" accept="image/*" capture="camera">
+                </div>
+                <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
+                <button type="submit" class="btn btn-danger btn-block">Submit</button>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="latitude">Latitude</label>
-              <input type="text" class="form-control" id="latitude" value="{{formData.latLng.lat()}}"readonly>
-            </div>
-            <div class="form-group">
-              <label for="longitude">Longitude</label>
-              <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly="">
-            </div>
-            <input type="file" accept="image/*" capture="camera">
-            <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
-            <button type="submit" class="btn btn-danger btn-block">Submit</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZmAyMUQNq2-msGjKpg1vjm4W_iaGqbb4"></script>
     <script type="text/javascript" src="/javascripts/controller.js"></script>
   </body>
 </html>
-
-
