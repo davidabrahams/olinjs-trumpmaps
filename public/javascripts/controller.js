@@ -12,11 +12,6 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   $scope.submit = function() {
-    console.log({
-      name: $scope.formData.name,
-      img: $scope.formData.img,
-      latLng: $scope.formData.latLng
-    });
     $http.post("api/trump", {
       name: $scope.formData.name,
       img: $scope.formData.img,
@@ -54,7 +49,11 @@ app.controller('home', function ($scope, $filter, $http) {
         infowindow.open(map, marker);
       });
     };
-    reader.readAsDataURL(img);
+
+    // TODO: THIS DOESN'T WORK. THE READER REQUIRES IMG TO BE A 'BLOB', WHICH
+    // MONGO CAN'T STORE.
+
+    // reader.readAsDataURL(img);
     return marker;
   }
 
@@ -68,7 +67,6 @@ app.controller('home', function ($scope, $filter, $http) {
     var trumps = data.data;
     clear_markers();
     trumps.forEach( function (trump) {
-      console.log(trump.img)
       var m = addMarker(trump.latLng, $scope.map, trump.img);
       markers.push(m);
     });
