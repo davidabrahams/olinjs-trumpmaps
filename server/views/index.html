@@ -30,10 +30,10 @@
     </div>
 
     <!-- Map -->
-    <div class="col-md-7" id="map"></div>
+    <div class="col-sm-7" id="map"></div>
 
     <!-- Panel -->
-    <div class="col-md-5">
+    <div class="col-sm-5">
       <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
@@ -60,6 +60,7 @@
               <label for="longitude">Longitude</label>
               <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly="">
             </div>
+            <input type="file" accept="image/*" capture="camera">
             <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
             <button type="submit" class="btn btn-danger btn-block">Submit</button>
           </form>
