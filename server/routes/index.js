@@ -2,6 +2,12 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var Trump = require('../models/trump');
+var passport = require('passport');
+
+/* GET auth page. */
+router.get('/login', function(req, res, next) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,5 +31,13 @@ router.post('/api/trump', function(req, res, next) {
     Trump.find(function (err, trumps) {res.json(trumps)});
   });
 });
+
+// Passport stuff
+router.get('/auth/facebook', passport.authenticate('facebook'));
+
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/login' })
+);
 
 module.exports = router;
