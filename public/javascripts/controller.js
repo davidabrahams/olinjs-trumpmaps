@@ -12,11 +12,12 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   $scope.submit = function() {
-    $http.post("api/trump", {
+    var data = {
       name: $scope.formData.name,
       img: $scope.formData.img,
       latLng: $scope.formData.latLng
-    }).then(onSuccess);
+    };
+    $http.post("api/trump", data).then(onSuccess);
   };
 
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
@@ -39,21 +40,14 @@ app.controller('home', function ($scope, $filter, $http) {
       map: map
     });
 
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      var contentString = '<img src="' + e.target.result + '" alt="your image" />'
-      var infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-      });
-    };
+    var contentString = '<img src="' + img + '" alt="your image" />'
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
 
-    // TODO: THIS DOESN'T WORK. THE READER REQUIRES IMG TO BE A 'BLOB', WHICH
-    // MONGO CAN'T STORE.
-
-    // reader.readAsDataURL(img);
     return marker;
   }
 
@@ -76,12 +70,10 @@ app.controller('home', function ($scope, $filter, $http) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
+        $scope.formData.img = e.target.result;
         $('#blah')
-          .attr('src', e.target.result)
-          .width(150)
-          .height(200);
+          .attr('src', e.target.result);
       };
-      $scope.formData.img = input.files[0];
       reader.readAsDataURL(input.files[0]);
     }
   }
