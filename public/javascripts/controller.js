@@ -78,5 +78,11 @@ app.controller('home', function ($scope, $filter, $http) {
     }
   }
 
+  $scope.fb_login = function() {
+    $http.get("auth/facebook").then(function(data) {
+      console.log(data)
+    });
+  };
+
   $http.get('api/trump').then(onSuccess);
 });

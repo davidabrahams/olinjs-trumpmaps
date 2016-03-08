@@ -36,8 +36,7 @@ router.post('/api/trump', function(req, res, next) {
 router.get('/auth/facebook', passport.authenticate('facebook'));
 
 router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' })
+  passport.authenticate('facebook', { successRedirect: '/' })
 );
 
 module.exports = router;
