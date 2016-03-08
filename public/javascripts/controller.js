@@ -85,4 +85,13 @@ app.controller('home', function ($scope, $filter, $http) {
   };
 
   $http.get('api/trump').then(onSuccess);
+  $http.get('loggedin').then(function (data) {
+    var user =data.data;
+    if (user) {
+      $scope.showme = true;
+    } else {
+      $scope.showme = false;
+    }
+
+  });
 });
