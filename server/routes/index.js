@@ -4,13 +4,9 @@ var router = express.Router();
 var Trump = require('../models/trump');
 var passport = require('passport');
 
-/* GET auth page. */
-router.get('/login', function(req, res, next) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(req.user);
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
 
@@ -37,7 +33,11 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 
 router.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' })
+                                      failureRedirect: '/' })
 );
+
+router.get('/loggedin', function(req, res, next) {
+  res.json(req.user);
+});
 
 module.exports = router;
