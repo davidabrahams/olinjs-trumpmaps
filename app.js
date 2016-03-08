@@ -48,10 +48,10 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ 
+app.use(session({
   secret: 'SantaHorse',
   resave: false,
-  saveUninitialized: false 
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
