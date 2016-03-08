@@ -80,7 +80,7 @@ app.controller('home', function ($scope, $filter, $http) {
 
   $scope.fb_login = function() {
     $http.get("auth/facebook").then(function(data) {
-      console.log(data)
+      console.log(data);
     });
   };
 
