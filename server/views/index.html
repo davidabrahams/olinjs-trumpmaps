@@ -25,8 +25,8 @@
         </div>
         <!-- Panel -->
         <div class="col-sm-5">
-          <center><a href="https://trumpmaps.herokuapp.com/auth/facebook">Log in with Facebook</a></center>
-          <div class="panel panel-default">
+          <div ng-hide="showme"><center><a href="/auth/facebook" class="btn btn-default">Log in with Facebook</a></center></div>
+          <div class="panel panel-default" ng-show="showme">
             <!-- Panel Title -->
             <div class="panel-heading">
               <h2 class="panel-title text-center">Add the trump! <span class="glyphicon glyphicon-map-marker"></span></h2>
