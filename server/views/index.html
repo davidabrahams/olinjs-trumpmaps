@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><!-- Font Awesome -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.min.js"></script>
-    <script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.runtime-v4.0.5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.runtime.min.js"></script>
     <script type="text/javascript" src="/javascripts/precompile.js"></script>
     <link rel='stylesheet' media='screen and (min-width: 751px)' href='/stylesheets/style.css' />
     <link rel='stylesheet' media='screen and (max-width: 750px)' href='/stylesheets/style_mobile.css' />
@@ -30,11 +30,28 @@
         </div>
         <!-- Panel -->
         <div class="col-sm-5">
-          <div class="center-block" ng-hide="showme"><center>
+          <div ng-show="showme==2" class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title text-center">Comments <span class="glyphicon glyphicon-comment"></span></h2>
+            </div>
+            <div class="panel-body">
+              <div ng-repeat="comment in selectedtrump.comments">
+                <p>{{comment}}</p>
+                <hr>
+              </div>
+              <form role="form" id="comment_form" ng-submit="comment_submit()">
+                <div class="form-group">
+                  <input type="text" ng-model="comment_text" class="form-control" id="comment_text" required="true">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button> <button ng-click="cancel_comment()" class="btn btn-default">Cancel</button>
+              </form>
+            </div>
+          </div>
+          <div class="center-block" ng-show="showme==0"><center>
             <a href="/auth/facebook" class="btn btn-default btn-social btn-facebook"><span class="fa fa-facebook"></span>Log in with Facebook</a></center>
             <img id="banana" src="/img/banana-trump.jpg" alt="HTML5 Icon" style="width:100%;height:auto;margin-top: 20px;">
           </div>
-          <div class="panel panel-default" ng-show="showme">
+          <div class="panel panel-default" ng-show="showme==1">
             <!-- Panel Title -->
             <div class="panel-heading">
               <h2 class="panel-title text-center">Add the trump! <span class="glyphicon glyphicon-map-marker"></span></h2>
@@ -42,29 +59,29 @@
             <!-- Panel Body -->
             <div class="panel-body">
               <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-              <form id="form" name="addForm" ng-submit="submit()" novalidate>
+              <form role="form" id="form" name="addForm" ng-submit="submit()">
                 <!-- Text Boxes and Other User Inputs-->
                 <div class="form-group">
                   <label for="name">Name of the Trump</label>
-                  <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required>
+                  <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required="true">
                 </div>
                 <div class="form-group">
                   <label for="latitude">Latitude</label>
-                  <input type="text" class="form-control" id="latitude" value="{{formData.latLng.lat()}}" readonly required>
+                  <input type="number" class="form-control" id="latitude" ng-model="formData.lat" required="true">
                 </div>
                 <div class="form-group">
                   <label for="longitude">Longitude</label>
-                  <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly required="true">
+                  <input type="number" class="form-control" id="longitude" ng-model="formData.lng" required="true">
                 </div>
                 <div class="form-group">
-                  <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage(this)">
+                  <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage(this)" required="true">
                 </div>
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
                 <button type="submit" class="btn btn-danger btn-block">Submit</button>
               </form>
             </div>
             <center><div class='error' style='display:none'>Image Size Limit: 1MB</div></center>
-            <img id="blah" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/>
+            <img id="uploaded" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/>
           </div>
         </div>
       </div>
