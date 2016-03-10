@@ -21,6 +21,10 @@ app.controller('home', function ($scope, $filter, $http) {
     $http.post("api/trump", data).then(onSuccess);
   };
 
+  $scope.comment_submit = function() {
+    console.log('submit');
+  }
+
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
     $scope.$apply(function () {
       $scope.formData.latLng = event.latLng;
@@ -82,7 +86,7 @@ app.controller('home', function ($scope, $filter, $http) {
       reader.onload = function (e) {
         $scope.$apply(function () {
           $scope.formData.img = e.target.result;
-          $('#blah')
+          $('#uploaded')
             .attr('src', e.target.result);
           $scope.showimage = true;
         });
@@ -91,19 +95,13 @@ app.controller('home', function ($scope, $filter, $http) {
     }
   }
 
-  $scope.fb_login = function() {
-    $http.get("auth/facebook").then(function(data) {
-      console.log(data);
-    });
-  };
-
   $http.get('api/trump').then(onSuccess);
   $http.get('loggedin').then(function (data) {
     var user =data.data;
     if (user) {
-      $scope.showme = true;
+      $scope.showme = 1;
     } else {
-      $scope.showme = false;
+      $scope.showme = 0;
     }
 
   });
