@@ -41,7 +41,7 @@ app.controller('home', function ($scope, $filter, $http) {
       map: map
     });
 
-    var contentString = '<img src="' + img + '" style="max-width: 200px; height: auto; alt="Drumpfs" />'
+    var contentString = Handlebars.templates.info_window({img: img})
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
