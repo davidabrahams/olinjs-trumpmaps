@@ -106,6 +106,7 @@ app.controller('home', function ($scope, $filter, $http) {
       markers.push(m);
     });
     $('#form').trigger('reset');
+    $('#comment_form').trigger('reset');
     $scope.formData.latLng = null;
     $scope.showimage = false;
   };
