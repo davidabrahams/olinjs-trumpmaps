@@ -30,11 +30,27 @@
         </div>
         <!-- Panel -->
         <div class="col-sm-5">
-          <div class="center-block" ng-hide="showme"><center>
+          <div ng-show="showme==2" class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title text-center">Comments <span class="glyphicon glyphicon-comment"></span></h2>
+            </div>
+            <div class="panel-body">
+              <div ng-repeat="comment in selectedtrump.comments">
+                <p>{{comment}}</p>
+              </div>
+              <form role="form" id="comment_form" ng-submit="comment_submit()">
+                <div class="form-group">
+                  <input type="text" ng-model="comment_text" class="form-control" id="comment_text">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button> <button ng-click="cancel_comment()" class="btn btn-default">Cancel</button>
+              </form>
+            </div>
+          </div>
+          <div class="center-block" ng-show="showme==0"><center>
             <a href="/auth/facebook" class="btn btn-default btn-social btn-facebook"><span class="fa fa-facebook"></span>Log in with Facebook</a></center>
             <img id="banana" src="/img/banana-trump.jpg" alt="HTML5 Icon" style="width:100%;height:auto;margin-top: 20px;">
           </div>
-          <div class="panel panel-default" ng-show="showme">
+          <div class="panel panel-default" ng-show="showme==1">
             <!-- Panel Title -->
             <div class="panel-heading">
               <h2 class="panel-title text-center">Add the trump! <span class="glyphicon glyphicon-map-marker"></span></h2>
@@ -63,7 +79,7 @@
                 <button type="submit" class="btn btn-danger btn-block">Submit</button>
               </form>
             </div>
-            <img id="blah" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/>
+            <img id="uploaded" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/>
           </div>
         </div>
       </div>
