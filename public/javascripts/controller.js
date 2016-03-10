@@ -36,16 +36,16 @@ app.controller('home', function ($scope, $filter, $http) {
     });
   });
 
-  function addMarker(location, map, img) {
+  function addMarker(trump, map) {
     // Add the marker at the clicked location, and add the next-available label
     // from the array of alphabetical characters.
     var marker = new google.maps.Marker({
-      position: location,
+      position: trump.latLng,
       label: 'TRUMP',
       map: map
     });
 
-    var contentString = Handlebars.templates.info_window({img: img})
+    var contentString = Handlebars.templates.info_window({img: trump.img})
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
@@ -53,7 +53,9 @@ app.controller('home', function ($scope, $filter, $http) {
       infowindows.forEach( function(iw) {
         iw.close();
       });
+      $scope.selectedtrump = trump;
       infowindow.open(map, marker);
+      console.log($scope.selectedtrump);
     });
     infowindows.push(infowindow);
 
@@ -72,7 +74,7 @@ app.controller('home', function ($scope, $filter, $http) {
     var trumps = data.data;
     clear_markers();
     trumps.forEach( function (trump) {
-      var m = addMarker(trump.latLng, $scope.map, trump.img);
+      var m = addMarker(trump, $scope.map);
       markers.push(m);
     });
     $('#form').trigger('reset');
