@@ -59,7 +59,7 @@
             <!-- Panel Body -->
             <div class="panel-body">
               <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-              <form id="form" name="addForm" ng-submit="submit()" novalidate>
+              <form role="form" id="form" name="addForm" ng-submit="submit()">
                 <!-- Text Boxes and Other User Inputs-->
                 <div class="form-group">
                   <label for="name">Name of the Trump</label>
@@ -67,14 +67,14 @@
                 </div>
                 <div class="form-group">
                   <label for="latitude">Latitude</label>
-                  <input type="text" class="form-control" id="latitude" ng-value="formData.latLng.lat()" required="true" readonly>
+                  <input type="number" class="form-control" id="latitude" ng-model="formData.lat" required="true">
                 </div>
                 <div class="form-group">
                   <label for="longitude">Longitude</label>
-                  <input type="text" class="form-control" id="longitude" ng-value="formData.latLng.lng()" required="true" readonly>
+                  <input type="number" class="form-control" id="longitude" ng-model="formData.lng" required="true">
                 </div>
                 <div class="form-group">
-                  <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage(this)">
+                  <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage(this)" required="true">
                 </div>
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
                 <button type="submit" class="btn btn-danger btn-block">Submit</button>

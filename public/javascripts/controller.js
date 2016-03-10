@@ -13,12 +13,13 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   $scope.submit = function() {
-    if ( $scope.formData.name && $scope.formData.img && $scope.formData.latLng)
+    if ( $scope.formData.name && $scope.formData.img && $scope.formData.lat
+         && $scope.formData.lng )
     {
       var data = {
         name: $scope.formData.name,
         img: $scope.formData.img,
-        latLng: $scope.formData.latLng
+        latLng: {lat: $scope.formData.lat, lng: $scope.formData.lng}
       };
       $http.post("api/trump", data).then(onSuccess);
     }
@@ -49,7 +50,8 @@ app.controller('home', function ($scope, $filter, $http) {
 
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
     $scope.$apply(function () {
-      $scope.formData.latLng = event.latLng;
+      $scope.formData.lat = event.latLng.lat();
+      $scope.formData.lng = event.latLng.lng();
       var marker = new google.maps.Marker({
         position: event.latLng,
         label: 'TRUMP',
@@ -114,7 +116,8 @@ app.controller('home', function ($scope, $filter, $http) {
     });
     $('#form').trigger('reset');
     $('#comment_form').trigger('reset');
-    $scope.formData.latLng = null;
+    $scope.formData.lat = null;
+    $scope.formData.lng = null;
     $scope.showimage = false;
   };
 
