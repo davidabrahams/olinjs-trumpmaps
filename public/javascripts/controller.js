@@ -65,6 +65,7 @@ app.controller('home', function ($scope, $filter, $http) {
   }
 
   var onSuccess = function(data) {
+    console.log("Is it actually submitting?");
     var trumps = data.data;
     clear_markers();
     trumps.forEach( function (trump) {
