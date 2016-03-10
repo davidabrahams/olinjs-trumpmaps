@@ -4,6 +4,7 @@ app.controller('home', function ($scope, $filter, $http) {
 
   var myLatlng = {lat: 42.360, lng: -71.058};
   var markers = [];
+  var infowindows = [];
   $scope.formData = {};
 
   $scope.map = new google.maps.Map(document.getElementById('map'), {
@@ -40,13 +41,17 @@ app.controller('home', function ($scope, $filter, $http) {
       map: map
     });
 
-    var contentString = '<img src="' + img + '" style="max-width: 200px; height: auto; alt="Drumpfs" />'
+    var contentString = Handlebars.templates.info_window({img: img})
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
     marker.addListener('click', function() {
+      infowindows.forEach( function(iw) {
+        iw.close();
+      });
       infowindow.open(map, marker);
     });
+    infowindows.push(infowindow);
 
     return marker;
   }
@@ -55,6 +60,8 @@ app.controller('home', function ($scope, $filter, $http) {
     markers.forEach( function(marker) {
       marker.setMap(null);
     });
+    markers = [];
+    infowindows = [];
   }
 
   var onSuccess = function(data) {
