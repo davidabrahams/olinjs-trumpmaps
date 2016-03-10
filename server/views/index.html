@@ -37,10 +37,11 @@
             <div class="panel-body">
               <div ng-repeat="comment in selectedtrump.comments">
                 <p>{{comment}}</p>
+                <hr>
               </div>
               <form role="form" id="comment_form" ng-submit="comment_submit()">
                 <div class="form-group">
-                  <input type="text" ng-model="comment_text" class="form-control" id="comment_text">
+                  <input type="text" ng-model="comment_text" class="form-control" id="comment_text" required="true">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button> <button ng-click="cancel_comment()" class="btn btn-default">Cancel</button>
               </form>
@@ -62,15 +63,15 @@
                 <!-- Text Boxes and Other User Inputs-->
                 <div class="form-group">
                   <label for="name">Name of the Trump</label>
-                  <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required>
+                  <input type="text" class="form-control" id="name" placeholder="XYZ" ng-model="formData.name" required="true">
                 </div>
                 <div class="form-group">
                   <label for="latitude">Latitude</label>
-                  <input type="text" class="form-control" id="latitude" value="{{formData.latLng.lat()}}" readonly required>
+                  <input type="text" class="form-control" id="latitude" ng-value="formData.latLng.lat()" required="true" readonly>
                 </div>
                 <div class="form-group">
                   <label for="longitude">Longitude</label>
-                  <input type="text" class="form-control" id="longitude" value="{{formData.latLng.lng()}}" readonly required="true">
+                  <input type="text" class="form-control" id="longitude" ng-value="formData.latLng.lng()" required="true" readonly>
                 </div>
                 <div class="form-group">
                   <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage(this)">

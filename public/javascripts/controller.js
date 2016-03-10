@@ -13,16 +13,23 @@ app.controller('home', function ($scope, $filter, $http) {
   });
 
   $scope.submit = function() {
-    var data = {
-      name: $scope.formData.name,
-      img: $scope.formData.img,
-      latLng: $scope.formData.latLng
-    };
-    $http.post("api/trump", data).then(onSuccess);
+    if ( $scope.formData.name && $scope.formData.img && $scope.formData.latLng)
+    {
+      var data = {
+        name: $scope.formData.name,
+        img: $scope.formData.img,
+        latLng: $scope.formData.latLng
+      };
+      $http.post("api/trump", data).then(onSuccess);
+    }
+    else
+    {
+
+    }
   };
 
   $scope.comment_submit = function() {
-    if ($scope.selectedtrump) {
+    if ($scope.selectedtrump && $scope.comment_text) {
       var data = {
         id: $scope.selectedtrump._id,
         comment: $scope.comment_text

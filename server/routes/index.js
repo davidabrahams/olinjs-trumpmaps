@@ -28,12 +28,11 @@ router.post('/api/trump', loggedIn, function(req, res, next) {
 });
 
 router.post('/api/trump/comment', loggedIn, function (req, res, next) {
-  if (req.body.id) {
+  if (req.body.id && req.body.comment) {
     Trump.findByIdAndUpdate(req.body.id, {$push: {comments: req.body.comment}},
       {safe: true, upsert: true}, function(err, model) {
         if (err) return res.status(500).
           send('An error occurred when adding a comment.');
-        console.log("comment success");
         Trump.find(function (err, trumps) {res.json(trumps)});
       });
   }
