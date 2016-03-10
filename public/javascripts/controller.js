@@ -23,6 +23,12 @@ app.controller('home', function ($scope, $filter, $http) {
 
   $scope.comment_submit = function() {
     console.log('submit');
+    console.log($scope.comment_text);
+    var data = {
+      id: $scope.selectedtrump._id,
+      comment: $scope.comment_text
+    };
+    $http.post("api/trump/comment", data).then(onSuccess);
   }
 
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
@@ -50,12 +56,14 @@ app.controller('home', function ($scope, $filter, $http) {
       content: contentString
     });
     marker.addListener('click', function() {
-      infowindows.forEach( function(iw) {
-        iw.close();
+      $scope.$apply(function () {
+        infowindows.forEach( function(iw) {
+          iw.close();
+        });
+        $scope.selectedtrump = trump;
+        infowindow.open(map, marker);
+        console.log($scope.selectedtrump);
       });
-      $scope.selectedtrump = trump;
-      infowindow.open(map, marker);
-      console.log($scope.selectedtrump);
     });
     infowindows.push(infowindow);
 
@@ -72,6 +80,11 @@ app.controller('home', function ($scope, $filter, $http) {
 
   var onSuccess = function(data) {
     var trumps = data.data;
+    if ($scope.selectedtrump) {
+      $scope.selectedtrump = $.grep(trumps, function(t) {
+        return t._id == $scope.selectedtrump._id;
+      })[0];
+    }
     clear_markers();
     trumps.forEach( function (trump) {
       var m = addMarker(trump, $scope.map);
