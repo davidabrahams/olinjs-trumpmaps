@@ -22,13 +22,22 @@ app.controller('home', function ($scope, $filter, $http) {
   };
 
   $scope.comment_submit = function() {
-    console.log('submit');
-    console.log($scope.comment_text);
-    var data = {
-      id: $scope.selectedtrump._id,
-      comment: $scope.comment_text
-    };
-    $http.post("api/trump/comment", data).then(onSuccess);
+    if ($scope.selectedtrump) {
+      var data = {
+        id: $scope.selectedtrump._id,
+        comment: $scope.comment_text
+      };
+      $http.post("api/trump/comment", data).then(onSuccess);
+    }
+  }
+
+  $scope.cancel_comment = function() {
+    $scope.showme = 1;
+    infowindows.forEach( function(iw) {
+      iw.close();
+    });
+    $('#comment_form').trigger('reset');
+    $scope.selectedtrump = null;
   }
 
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
@@ -62,7 +71,13 @@ app.controller('home', function ($scope, $filter, $http) {
         });
         $scope.selectedtrump = trump;
         infowindow.open(map, marker);
-        console.log($scope.selectedtrump);
+        $scope.showme = 2;
+        infowindow.addListener('closeclick', function() {
+          $scope.$apply(function () {
+            $scope.showme = 1;
+            $scope.selectedtrump = null;
+          });
+        })
       });
     });
     infowindows.push(infowindow);
