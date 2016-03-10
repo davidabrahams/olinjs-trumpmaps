@@ -18,7 +18,9 @@ app.controller('home', function ($scope, $filter, $http) {
       img: $scope.formData.img,
       latLng: $scope.formData.latLng
     };
-    $http.post("api/trump", data).then(onSuccess);
+    $http.post("api/trump", data).then(onSuccess, function errorCallback(response){
+      $('.error').stop().fadeIn(400).delay(3000).fadeOut(400); //fade out after 3 seconds
+    });
   };
 
   google.maps.event.addListener($scope.map, 'dblclick', function(event) {
@@ -65,7 +67,6 @@ app.controller('home', function ($scope, $filter, $http) {
   }
 
   var onSuccess = function(data) {
-    console.log("Is it actually submitting?");
     var trumps = data.data;
     clear_markers();
     trumps.forEach( function (trump) {
