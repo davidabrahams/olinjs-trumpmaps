@@ -35,7 +35,7 @@
             <!-- Panel Body -->
             <div class="panel-body">
               <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-              <form name ="addForm" ng-submit="submit()" novalidate>
+              <form id="form" name="addForm" ng-submit="submit()" novalidate>
                 <!-- Text Boxes and Other User Inputs-->
                 <div class="form-group">
                   <label for="name">Name of the Trump</label>
@@ -56,7 +56,7 @@
                 <button type="submit" class="btn btn-danger btn-block">Submit</button>
               </form>
             </div>
-            <img id="blah" src="#" height=auto width="100%" alt="your image" />
+            <img id="blah" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/>
           </div>
         </div>
       </div>

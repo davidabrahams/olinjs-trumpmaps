@@ -64,15 +64,21 @@ app.controller('home', function ($scope, $filter, $http) {
       var m = addMarker(trump.latLng, $scope.map, trump.img);
       markers.push(m);
     });
+    $('#form').trigger('reset');
+    $scope.formData.latLng = null;
+    $scope.showimage = false;
   };
 
   $scope.uploadImage = function(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        $scope.formData.img = e.target.result;
-        $('#blah')
-          .attr('src', e.target.result);
+        $scope.$apply(function () {
+          $scope.formData.img = e.target.result;
+          $('#blah')
+            .attr('src', e.target.result);
+          $scope.showimage = true;
+        });
       };
       reader.readAsDataURL(input.files[0]);
     }
