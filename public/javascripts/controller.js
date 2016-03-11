@@ -7,12 +7,14 @@ app.controller('home', function ($scope, $filter, $http) {
   var infowindows = [];
   $scope.formData = {};
 
+  // Set up map properties
   $scope.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
     center: myLatlng
   });
 
   $scope.submit = function() {
+    // Making sure all required fields are there
     if ( $scope.formData.name && $scope.formData.img && $scope.formData.lat
          && $scope.formData.lng )
     {
@@ -21,8 +23,9 @@ app.controller('home', function ($scope, $filter, $http) {
         img: $scope.formData.img,
         latLng: {lat: $scope.formData.lat, lng: $scope.formData.lng}
       };
+      // Post the data and on error (Image bigger than 1MB), warn users
       $http.post("api/trump", data).then(onSuccess, function errorCallback(response){
-        $('.error').stop().fadeIn(400).delay(3000).fadeOut(400); //fade out after 3 seconds
+        $('.error').stop().fadeIn(400).delay(3000).fadeOut(400); // Fade out after 3 seconds
       });
     }
     else

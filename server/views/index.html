@@ -5,18 +5,22 @@
     <title>ProfWIKI</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZmAyMUQNq2-msGjKpg1vjm4W_iaGqbb4"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script><!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><!-- Font Awesome -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.runtime.min.js"></script>
     <script type="text/javascript" src="/javascripts/precompile.js"></script>
+
+    <!-- Load Different css based on the screen width (Mobile and Laptop) -->
     <link rel='stylesheet' media='screen and (min-width: 751px)' href='/stylesheets/style.css' />
     <link rel='stylesheet' media='screen and (max-width: 750px)' href='/stylesheets/style_mobile.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap-social.css' />
+
   </head>
   <body ng-controller="home">
     <div class="container">
@@ -28,7 +32,7 @@
         <div class="col-sm-7">
           <center><div id="map"></div></center>
         </div>
-        <!-- Panel -->
+        <!-- Panel with Form -->
         <div class="col-sm-5">
           <div ng-show="showme==2" class="panel panel-default">
             <div class="panel-heading">
@@ -80,8 +84,8 @@
                 <button type="submit" class="btn btn-danger btn-block">Submit</button>
               </form>
             </div>
-            <center><div class='error' style='display:none'>Image Size Limit: 1MB</div></center>
-            <img id="uploaded" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/>
+            <center><div class='error' style='display:none'>Image Size Limit: 1MB</div></center><!-- Toasting the error (Fade in and out) -->
+            <img id="uploaded" src="#" height=auto width="100%" alt="your image" ng-show="showimage"/><!-- Show uploaded image -->
           </div>
         </div>
       </div>

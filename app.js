@@ -11,7 +11,6 @@ var session = require('express-session');
 
 var auth = require('./auth');
 var routes = require('./server/routes/index');
-var users = require('./server/routes/users');
 
 passport.use(new FacebookStrategy({
     clientID: auth.FACEBOOK_APP_ID,
@@ -35,8 +34,7 @@ mongoose.connect(mongoURI);
 app.use(bodyParser.json({limit: '1mb'}));
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/img', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,7 +54,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -64,11 +61,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
-app.get('/user', ensureAuthenticated, function(req, res) {
-  res.send(req.user);
-})
 
 passport.serializeUser(function(user, done) {
   done(null, user);

@@ -27,6 +27,7 @@ router.post('/api/trump', loggedIn, function(req, res, next) {
   });
 });
 
+/* POST comment for each picture */
 router.post('/api/trump/comment', loggedIn, function (req, res, next) {
   if (req.body.id && req.body.comment) {
     Trump.findByIdAndUpdate(req.body.id, {$push: {comments: req.body.comment}},
@@ -50,6 +51,7 @@ router.get('/loggedin', function(req, res, next) {
   res.json(req.user);
 });
 
+// Check if user is logged in
 function loggedIn(req, res, next) {
     if (req.user) {
         next();

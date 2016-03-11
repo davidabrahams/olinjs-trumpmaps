@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 // Create a Schema
 var Trump = mongoose.Schema({
     name: String, // name of the trump
-    img: Schema.Types.Mixed, // As of now, a url %TODO: change it?
+    img: Schema.Types.Mixed, // Is currently not being used
     latLng: Schema.Types.Mixed, // LatLong obj
     comments: [String]
 });
