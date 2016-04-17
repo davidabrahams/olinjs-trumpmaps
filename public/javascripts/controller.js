@@ -1,8 +1,11 @@
 var app = angular.module('app', []);
 
 app.controller('home', function ($scope, $filter, $http) {
-
-  var myLatlng = {lat: 42.360, lng: -71.058};
+  // I think this file could use a bit of organization -- gather all of the
+  // functions on $scope together, gather all of the functions which are local
+  // to the controller together, maybe bring the lines which execute right away
+  // (e.g. the http.gets at the end) up to the top
+  var myLatlng = {lat: 42.360, lng: -71.058}; // could you pull this from somewhere instead of hard-coding?
   var markers = [];
   var infowindows = [];
   $scope.formData = {};
@@ -30,7 +33,7 @@ app.controller('home', function ($scope, $filter, $http) {
     }
     else
     {
-
+      // what's going on here?
     }
   };
 
@@ -107,6 +110,9 @@ app.controller('home', function ($scope, $filter, $http) {
     infowindows = [];
   }
 
+  // maybe pick one way of declaring functions? as var ___ or as function ___
+  // I'm left wondering whether you declared in different ways for a reason, and I don't think there is one --
+  // ok with inconsistency but only when there's really good reason for it
   var onSuccess = function(data) {
     var trumps = data.data;
     if ($scope.selectedtrump) {
