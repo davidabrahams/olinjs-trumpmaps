@@ -142,7 +142,7 @@ app.controller('home', function ($scope, $filter, $http) {
   }
 
   $http.get('api/trump').then(onSuccess);
-  $http.get('loggedin').then(function (data) {
+  $http.get('loggedin').then(function (data) {//you could set a variable on the client to not make this request repeatedly
     var user =data.data;
     if (user) {
       $scope.showme = 1;
