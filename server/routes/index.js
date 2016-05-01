@@ -8,6 +8,8 @@ var passport = require('passport');
 router.get('/', function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
+//Often with angular its better to send file on * as the last route.
+//So if a route doesn't end or doesn't exist the client will still load your app. 
 
 /* GET all trumps in the world. */
 router.get('/api/trump', loggedIn, function (req, res, next) {
